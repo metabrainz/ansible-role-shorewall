@@ -49,7 +49,7 @@
     - etc/shorewall/hosts
     - etc/shorewall/interfaces
     - src: etc/shorewall/params
-      mode: "0750"
+      mode: "0640"
     - etc/shorewall/policy
     - etc/shorewall/routes
     - etc/shorewall/rules
