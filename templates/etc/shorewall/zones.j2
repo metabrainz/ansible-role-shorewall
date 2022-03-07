@@ -1,0 +1,17 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+# {{ ansible_managed }}
+
+#
+# Shorewall -- /etc/shorewall/zones
+#
+# For information about this file, type "man shorewall-zones"
+#
+# The manpage is also online at
+# http://www.shorewall.net/manpages/shorewall-zones.html
+#
+###############################################################################
+#ZONE		TYPE		OPTIONS		IN_OPTIONS	OUT_OPTIONS
+
+{% for zone in shorewall_zones + shorewall_group_zones + shorewall_host_zones %}
+{{ zone.zone }} {{ zone.type|d('-') }} {{ zone.options|d([])|join(',') }}
+{% endfor %}

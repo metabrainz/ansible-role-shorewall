@@ -1,0 +1,103 @@
+shorewall_config_directory: /etc/shorewall
+
+shorewall_packages:
+  - shorewall
+  # needed for ipset blacklisting
+  - ipset
+  # needed for ipset blacklisting with the disconnect option
+  - conntrack
+
+shorewall_service_enabled: true
+shorewall_service_state: started
+
+shorewall_options: ""
+shorewall_start_options: ""
+shorewall_reload_options: ""
+shorewall_restart_options: ""
+# NOTE: not supported by systemd
+shorewall_stop_options: ""
+
+shorewall_admin_is_absent_minded: true
+shorewall_autohelpers: true
+shorewall_clamp_mss: false
+shorewall_disable_ipv6: false
+shorewall_docker: false
+shorewall_dynamic_blacklist: true
+shorewall_fast_accept: false
+shorewall_ip_forwarding: false
+shorewall_log_martians: true
+shorewall_null_route_rfc1918: false
+shorewall_optimize: All
+shorewall_route_filter: true
+shorewall_save_ipsets: false
+shorewall_verbosity: 1
+
+shorewall_zones:
+  - zone: fw
+    type: firewall
+  - zone: net
+    type: ipv4
+shorewall_group_zones: []
+shorewall_host_zones: []
+
+shorewall_policy:
+  - source: fw
+    dest: all
+    policy: ACCEPT
+  - source: all
+    dest: all
+    policy: REJECT
+
+shorewall_interfaces:
+  - interface: +
+    zone: net
+shorewall_group_interfaces: []
+shorewall_host_interfaces: []
+
+shorewall_rules:
+  - action: SSH(ACCEPT)
+    source: net
+    dest: $FW
+  - action: Ping(ACCEPT)
+    source: net
+    dest: $FW
+    rate: 100/min:50
+  - action: AllowICMPs(ACCEPT)
+    source: net
+    dest: $FW
+shorewall_group_rules: []
+shorewall_host_rules: []
+
+shorewall_hosts: []
+# shorewall_hosts:
+# - zone: net
+#   hosts: eth0:192.168.0.0/24
+#   options:
+#     - nosmurfs
+# shorewall_snat:
+#   - action: MASQUERADE
+#     source: 192.168.0.0/24
+#     dest: eth0
+shorewall_snat: []
+# shorewall_tunnels:
+#   - type: openvpnserver
+#     zone: net
+#     gateway_zones:
+#       - gw
+shorewall_tunnels: []
+# shorewall_routes:
+#   - provider: main
+#     dest: 192.168.3.0/24
+#     gateway: blackhole
+shorewall_routes: []
+shorewall_group_routes: []
+shorewall_host_routes: []
+# shorewall_params:
+#   NET_IF: eth0 
+shorewall_params: {}
+shorewall_group_params: {}
+shorewall_host_params: {}
+
+#shorewall_start: |
+#  run_iptables -N custom
+#  run_uptables -I INPUT 1 -j custom

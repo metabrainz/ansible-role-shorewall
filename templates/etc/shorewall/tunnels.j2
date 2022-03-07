@@ -1,0 +1,16 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+# {{ ansible_managed }}
+
+#
+# Shorewall -- /etc/shorewall/tunnels
+#
+# For information about entries in this file, type "man shorewall-tunnels"
+#
+# The manpage is also online at
+# http://www.shorewall.net/manpages/shorewall-tunnels.html
+#
+###############################################################################
+#TYPE			ZONE		GATEWAY			GATEWAY_ZONE
+{% for entry in shorewall_tunnels %}
+{{ entry.type }} {{ entry.zone }} {{ entry.gateway }} {{ entry.gateway_zones|d([])|join(',') }}
+{% endfor %}

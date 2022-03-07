@@ -1,0 +1,19 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+# {{ ansible_managed }}
+
+#
+# Shorewall -- /etc/shorewall/start
+#
+# Add commands below that you want to be executed after shorewall has
+# been started, reloaded or restarted.
+#
+# See http://shorewall.net/shorewall_extension_scripts.htm for additional
+# information.
+#
+###############################################################################
+{% if shorewall_start|d() %}
+
+{{ shorewall_start }}
+{% endif %}
+
+return 0

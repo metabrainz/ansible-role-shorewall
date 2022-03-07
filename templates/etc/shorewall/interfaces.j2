@@ -1,0 +1,17 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
+# {{ ansible_managed }}
+
+#
+# Shorewall -- /etc/shorewall/interfaces
+#
+# For information about entries in this file, type "man shorewall-interfaces"
+#
+# The manpage is also online at
+# http://www.shorewall.net/manpages/shorewall-interfaces.html
+#
+?FORMAT 2
+###############################################################################
+#ZONE		INTERFACE		OPTIONS
+{% for iface in shorewall_interfaces + shorewall_group_interfaces + shorewall_host_interfaces %}
+{{ iface.zone }} {{ iface.interface }} {{ iface.options|d([])|join(',') }}
+{% endfor %}

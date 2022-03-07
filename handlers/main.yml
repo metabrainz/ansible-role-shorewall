@@ -1,0 +1,17 @@
+- name: Reload systemd
+  listen: reload systemd
+  systemd:
+    daemon_reload: yes
+  when: ansible_service_mgr == "systemd"
+
+- name: Check and restart Shorewall
+  listen: check and restart shorewall
+  command: shorewall check
+  notify: restart shorewall
+
+- name: Restart Shorewall
+  listen: restart shorewall
+  service:
+    name: shorewall
+    state: restarted
+  when: shorewall_service_state == "started"
