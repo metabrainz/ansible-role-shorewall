@@ -1,0 +1,6 @@
+---
+shorewall_docker: true
+shorewall_group_rules:
+  - action: HTTPS(ACCEPT)
+    source: net
+    dest: $FW
