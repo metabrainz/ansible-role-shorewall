@@ -1,3 +1,4 @@
+---
 - name: Reload systemd
   listen: reload systemd
   systemd:

@@ -1,5 +1,4 @@
-shorewall_config_directory: /etc/shorewall
-
+---
 shorewall_packages:
   - shorewall
   # needed for ipset blacklisting
@@ -78,20 +77,24 @@ shorewall_hosts: []
 #   - action: MASQUERADE
 #     source: 192.168.0.0/24
 #     dest: eth0
+
 shorewall_snat: []
 # shorewall_tunnels:
 #   - type: openvpnserver
 #     zone: net
 #     gateway_zones:
 #       - gw
+
 shorewall_tunnels: []
 # shorewall_routes:
 #   - provider: main
 #     dest: 192.168.3.0/24
 #     gateway: blackhole
+
 shorewall_routes: []
 shorewall_group_routes: []
 shorewall_host_routes: []
+
 # shorewall_params:
 #   NET_IF: eth0 
 shorewall_params: {}
@@ -100,4 +103,4 @@ shorewall_host_params: {}
 
 #shorewall_start: |
 #  run_iptables -N custom
-#  run_uptables -I INPUT 1 -j custom
+#  run_iptables -I INPUT 1 -j custom
