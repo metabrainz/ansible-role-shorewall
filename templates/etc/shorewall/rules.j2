@@ -18,6 +18,7 @@
 ?SECTION INVALID
 ?SECTION UNTRACKED
 ?SECTION NEW
-{% for rule in shorewall_rules + shorewall_group_rules + shorewall_host_rules %}
+{% set _rules = shorewall_rules + shorewall_group_rules + shorewall_host_rules %}
+{% for rule in _rules if not rule.skip_when|d()|bool %}
 {{ rule.action }} {{ rule.source }} {{ rule.dest }} {{ rule.proto|d('-') }} {{ rule.dport|d('-') }} {{ rule.sport|d('-') }} {{ rule.origdest|d('-') }} {{ rule.rate|d('') }}
 {% endfor %}

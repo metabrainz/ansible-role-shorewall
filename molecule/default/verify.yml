@@ -9,27 +9,13 @@
       register: result
       changed_when: false
       failed_when: result.stat.isreg is not defined or not result.stat.isreg
+
     - name: Ensure permissions on params configuration file are correct
       stat:
         path: "/etc/shorewall/params"
       register: shorewall_params
       failed_when: shorewall_params.stat.mode != "0640"
-    - name: Ensure rule from shorewall_group_rules is present
-      command:
-        argv:
-          - grep
-          - -q
-          - ^HTTPS(ACCEPT) net $FW
-          - /etc/shorewall/rules
-      changed_when: false
-    - name: Ensure rule from shorewall_host_rules is present
-      command:
-        argv:
-          - grep
-          - -q
-          - ^IMAP(ACCEPT) net $FW
-          - /etc/shorewall/rules
-      changed_when: false
+
     - name: Ensure Docker support is enabled
       command:
         argv:
@@ -38,6 +24,7 @@
           - ^DOCKER=Yes
           - /etc/shorewall/shorewall.conf
       changed_when: false
+
     - name: Ensure dynamic blacklist support is set correctly
       command:
         argv:
@@ -45,4 +32,42 @@
           - -q
           - ^DYNAMIC_BLACKLIST=ipset-only,disconnect
           - /etc/shorewall/shorewall.conf
+      changed_when: false
+
+    - name: Ensure rule from shorewall_group_rules is present
+      command:
+        argv:
+          - grep
+          - -q
+          - ^HTTPS(ACCEPT) net $FW
+          - /etc/shorewall/rules
+      changed_when: false
+
+    - name: Ensure rule from shorewall_host_rules is present
+      command:
+        argv:
+          - grep
+          - -q
+          - ^IMAP(ACCEPT) net $FW
+          - /etc/shorewall/rules
+      changed_when: false
+
+    - name: Ensure skipped rule from shorewall_host_rules is not present
+      command:
+        argv:
+          - grep
+          - -q
+          - ^SMTP(ACCEPT) net $FW
+          - /etc/shorewall/rules
+      register: grep
+      changed_when: false
+      failed_when: not grep.failed
+
+    - name: Ensure non-skipped rule from shorewall_host_rules is present
+      command:
+        argv:
+          - grep
+          - -q
+          - ^DNS(REJECT) net:1.1.1.1 $FW
+          - /etc/shorewall/rules
       changed_when: false

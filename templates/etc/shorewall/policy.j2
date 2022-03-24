@@ -11,6 +11,7 @@
 #
 ###############################################################################
 #SOURCE		DEST		POLICY	LOGLEVEL	LIMIT	CONNLIMIT
-{% for policy in shorewall_host_policy|d(shorewall_group_policy|d(shorewall_policy)) %}
+{% set _policies = shorewall_host_policy|d(shorewall_group_policy|d(shorewall_policy)) %}
+{% for policy in _policies if not policy.skip_when|d()|bool %}
 {{ policy.source }} {{ policy.dest }} {{ policy.policy }} {{ policy.log_level|d('-') }} {{ policy.limit|d('-') }} {{ policy.connlimit|d() }}
 {% endfor %}

@@ -11,6 +11,6 @@
 #
 ###############################################################################
 #TYPE			ZONE		GATEWAY			GATEWAY_ZONE
-{% for entry in shorewall_tunnels %}
-{{ entry.type }} {{ entry.zone }} {{ entry.gateway }} {{ entry.gateway_zones|d([])|join(',') }}
+{% for tunnel in shorewall_tunnels if not tunnel.skip_when|d()|bool %}
+{{ tunnel.type }} {{ tunnel.zone }} {{ tunnel.gateway }} {{ tunnel.gateway_zones|d([])|join(',') }}
 {% endfor %}

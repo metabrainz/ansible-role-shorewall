@@ -11,6 +11,6 @@
 #
 ###############################################################################
 #ZONE		HOSTS				OPTIONS
-{% for entry in shorewall_hosts %}
-{{ entry.zone }} {{ entry.hosts|d('-') }} {{ entry.options|d([])|join(',') }}
+{% for host in shorewall_hosts if not host.skip_when|d()|bool %}
+{{ host.zone }} {{ host.hosts|d('-') }} {{ host.options|d([])|join(',') }}
 {% endfor %}

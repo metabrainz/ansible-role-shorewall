@@ -4,3 +4,11 @@ shorewall_host_rules:
   - action: IMAP(ACCEPT)
     source: net
     dest: $FW
+  - action: SMTP(ACCEPT)
+    source: net
+    dest: $FW
+    skip_when: "{{ inventory_hostname == 'instance' }}"
+  - action: DNS(REJECT)
+    source: "net:1.1.1.1"
+    dest: $FW
+    skip_when: "{{ ansible_hostname != 'instance' }}"

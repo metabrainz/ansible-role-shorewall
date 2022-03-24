@@ -46,6 +46,8 @@ shorewall_policy:
   - source: all
     dest: all
     policy: REJECT
+# shorewall_group_policy: []
+# shorewall_host_policy: []
 
 shorewall_interfaces:
   - interface: +
@@ -73,31 +75,35 @@ shorewall_hosts: []
 #   hosts: eth0:192.168.0.0/24
 #   options:
 #     - nosmurfs
+
+shorewall_snat: []
 # shorewall_snat:
 #   - action: MASQUERADE
 #     source: 192.168.0.0/24
 #     dest: eth0
 
-shorewall_snat: []
+shorewall_tunnels: []
 # shorewall_tunnels:
 #   - type: openvpnserver
 #     zone: net
 #     gateway_zones:
 #       - gw
 
-shorewall_tunnels: []
+shorewall_routes: []
 # shorewall_routes:
 #   - provider: main
 #     dest: 192.168.3.0/24
 #     gateway: blackhole
-
-shorewall_routes: []
 shorewall_group_routes: []
 shorewall_host_routes: []
 
-# shorewall_params:
-#   NET_IF: eth0 
 shorewall_params: {}
+# shorewall_params:
+#   NET_IF: eth0
+#   SSH_HOSTS:
+#     - 10.1.0.42
+#     - 10.42.0.1
+#     - 192.168.85.1/24
 shorewall_group_params: {}
 shorewall_host_params: {}
 

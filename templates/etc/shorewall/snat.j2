@@ -10,6 +10,6 @@
 #
 ###########################################################################################################################################
 #ACTION			SOURCE			DEST		PROTO	PORT	IPSEC	MARK	USER	SWITCH	ORIGDEST	PROBABILITY
-{% for entry in shorewall_snat %}
-{{ entry.action }} {{ entry.source|d('-') }} {{ entry.dest }} {{ entry.proto|d('-') }} {{ entry.port|d() }}
+{% for snat in shorewall_snat if not snat.skip_when|d()|bool %}
+{{ snat.action }} {{ snat.source|d('-') }} {{ snat.dest }} {{ snat.proto|d('-') }} {{ snat.port|d() }}
 {% endfor %}

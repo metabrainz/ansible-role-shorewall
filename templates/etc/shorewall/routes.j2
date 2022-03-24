@@ -10,6 +10,7 @@
 #
 ###############################################################################
 #PROVIDER		DEST			GATEWAY		DEVICE	OPTIONS
-{% for entry in shorewall_routes + shorewall_group_routes + shorewall_host_routes %}
-{{ entry.provider }} {{ entry.dest }} {{ entry.gateway|d('-') }} {{ entry.device|d('-') }} {{ entry.options| d([])|join(',') }}
+{% set _routes = shorewall_routes + shorewall_group_routes + shorewall_host_routes %}
+{% for route in _routes if not route.skip_when|d()|bool %}
+{{ route.provider }} {{ route.dest }} {{ route.gateway|d('-') }} {{ route.device|d('-') }} {{ route.options|d([])|join(',') }}
 {% endfor %}

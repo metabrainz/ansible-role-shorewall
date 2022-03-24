@@ -12,6 +12,7 @@
 ?FORMAT 2
 ###############################################################################
 #ZONE		INTERFACE		OPTIONS
-{% for iface in shorewall_interfaces + shorewall_group_interfaces + shorewall_host_interfaces %}
+{% set _interfaces = shorewall_interfaces + shorewall_group_interfaces + shorewall_host_interfaces %}
+{% for iface in _interfaces if not iface.skip_when|d()|bool %}
 {{ iface.zone }} {{ iface.interface }} {{ iface.options|d([])|join(',') }}
 {% endfor %}
