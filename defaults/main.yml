@@ -24,6 +24,8 @@ shorewall_docker: false
 shorewall_dynamic_blacklist: true
 shorewall_fast_accept: false
 shorewall_ip_forwarding: false
+# https://bugs.launchpad.net/ubuntu/+source/shorewall/+bug/1096504
+shorewall_logfile: /var/log/syslog
 shorewall_log_martians: true
 shorewall_null_route_rfc1918: false
 shorewall_optimize: All
