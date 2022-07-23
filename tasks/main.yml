@@ -44,7 +44,7 @@
     owner: "{{ item.owner|d(omit) }}"
     group: "{{ item.group|d(omit) }}"
     mode: "{{ item.mode|d(omit) }}"
-  with_items:
+  loop:
     - etc/default/shorewall
     - etc/shorewall/shorewall.conf
     - etc/shorewall/hosts
