@@ -39,11 +39,11 @@
 
 - name: Install Shorewall configuration files
   template:
-    src: "{{ item.src|d(item) }}.j2"
-    dest: "/{{ item.src|d(item) }}"
-    owner: "{{ item.owner|d(omit) }}"
-    group: "{{ item.group|d(omit) }}"
-    mode: "{{ item.mode|d(omit) }}"
+    src: "{{ item.src | d(item) }}.j2"
+    dest: "/{{ item.src | d(item) }}"
+    owner: "{{ item.owner | d(omit) }}"
+    group: "{{ item.group | d(omit) }}"
+    mode: "{{ item.mode | d(omit) }}"
   loop:
     - etc/default/shorewall
     - etc/shorewall/shorewall.conf
