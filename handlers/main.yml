@@ -5,8 +5,8 @@
     daemon_reload: yes
   when: ansible_service_mgr == "systemd"
 
-- name: Check and restart Shorewall
-  listen: check and restart shorewall
+- name: Check Shorewall
+  listen: check shorewall
   command: shorewall check
   notify: restart shorewall
   ignore_errors: "{{ ansible_check_mode }}"

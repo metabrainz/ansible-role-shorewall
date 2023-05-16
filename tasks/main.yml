@@ -58,7 +58,9 @@
     - etc/shorewall/start
     - etc/shorewall/tunnels
     - etc/shorewall/zones
-  notify: check and restart shorewall
+  notify:
+    - check shorewall
+    - restart shorewall
 
 - name: Enable and start Shorewall
   service:
