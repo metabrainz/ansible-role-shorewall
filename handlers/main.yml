@@ -1,19 +1,19 @@
 ---
-- name: Reload systemd
+- name: Reload SystemD
   listen: reload systemd
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: yes
   when: ansible_service_mgr == "systemd"
 
 - name: Check Shorewall
   listen: check shorewall
-  command: shorewall check
+  ansible.builtin.command: shorewall check
   ignore_errors: "{{ ansible_check_mode }}"
   changed_when: false
 
 - name: Restart Shorewall
   listen: restart shorewall
-  service:
+  ansible.builtin.service:
     name: shorewall
     state: "{{ shorewall_restart_handler_state }}"
   when: shorewall_service_state == "started"

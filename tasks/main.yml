@@ -1,11 +1,11 @@
 ---
 - name: Install Shorewall
-  apt:
+  ansible.builtin.apt:
     name: "{{ shorewall_packages }}"
     state: present
 
 - name: Create Shorewall systemd service drop-in directory
-  file:
+  ansible.builtin.file:
     path: /etc/systemd/system/shorewall.service.d
     state: directory
     owner: root
@@ -15,7 +15,7 @@
 # Workaround for restart clearing Docker rules, see:
 # https://shorewall.org/Docker.html#idm23
 - name: Create Shorewall systemd service drop-in snippet
-  copy:
+  ansible.builtin.copy:
     dest: /etc/systemd/system/shorewall.service.d/ansible.conf
     content: |
       # Ansible managed
@@ -26,7 +26,7 @@
   notify: reload systemd
 
 - name: Divert Shorewall configuration files
-  command: >
+  ansible.builtin.command: >
     dpkg-divert --quiet --local
     --divert {{ item }}.dpkg-divert
     --rename {{ item }}
@@ -38,7 +38,7 @@
     - /etc/shorewall/params
 
 - name: Install Shorewall configuration files
-  template:
+  ansible.builtin.template:
     src: "{{ item.src | d(item) }}.j2"
     dest: "/{{ item.src | d(item) }}"
     owner: "{{ item.owner | d(omit) }}"
@@ -63,7 +63,7 @@
     - restart shorewall
 
 - name: Enable and start Shorewall
-  service:
+  ansible.builtin.service:
     name: shorewall
     enabled: "{{ shorewall_service_enabled }}"
     state: "{{ shorewall_service_state }}"
