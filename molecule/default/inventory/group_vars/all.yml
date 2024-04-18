@@ -4,3 +4,8 @@ shorewall_group_rules:
   - action: HTTPS(ACCEPT)
     source: net
     dest: $FW
+
+shorewall_group_params:
+  NESTED_LIST:
+    - 10.0.0.1
+    - [10.254.254.1, 10.254.254.2]
