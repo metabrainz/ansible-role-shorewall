@@ -12,3 +12,6 @@ shorewall_host_rules:
     source: "net:1.1.1.1"
     dest: $FW
     skip_when: "{{ ansible_hostname != 'instance' }}"
+
+shorewall_host_params:
+  LOCALHOST: 127.0.0.1

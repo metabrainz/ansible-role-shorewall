@@ -71,3 +71,21 @@
           - ^DNS(REJECT) net:1.1.1.1 $FW
           - /etc/shorewall/rules
       changed_when: false
+
+    - name: Ensure nested listed in shorewall_group_params is flattened
+      command:
+        argv:
+          - grep
+          - -q
+          - ^NESTED_LIST=10.0.0.1,10.254.254.1,10.254.254.2
+          - /etc/shorewall/params
+      changed_when: false
+
+    - name: Ensure shorewall_params vars are merged
+      command:
+        argv:
+          - grep
+          - -q
+          - ^LOCALHOST=127.0.0.1
+          - /etc/shorewall/params
+      changed_when: false

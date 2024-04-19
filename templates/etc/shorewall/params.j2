@@ -27,5 +27,5 @@
 ###############################################################################
 {% set params = shorewall_params|d({}) | combine(shorewall_group_params|d({}), shorewall_host_params|d({})) %}
 {% for param, value in params|dictsort %}
-{{ param }}={{ value|join(',')|quote if value is iterable and value is not string else value|quote }}
+{{ param }}={{ value|flatten|join(',')|quote if value is iterable and value is not string else value|quote }}
 {% endfor %}
