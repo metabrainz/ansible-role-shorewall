@@ -10,7 +10,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0755
+    mode: "0755"
 
 # Workaround for restart clearing Docker rules, see:
 # https://shorewall.org/Docker.html#idm23
@@ -22,7 +22,7 @@
       [Service]
       ExecStop=
       ExecStop=/sbin/shorewall $OPTIONS stop
-    mode: 0644
+    mode: "0644"
   notify: reload systemd
 
 - name: Divert Shorewall configuration files
